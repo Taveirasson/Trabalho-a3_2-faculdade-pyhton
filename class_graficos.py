@@ -31,7 +31,6 @@ class Graficos:
             'dispersao': self.gerar_grafico_dispersao,
             'linha': self.gerar_grafico_linha,
             'area': self.gerar_grafico_area,
-            'radar': self.gerar_grafico_radar, #1
             'area_empilhada': self.gerar_grafico_area_empilhada,
             'barras_empilhadas': self.gerar_grafico_barras_empilhadas
             # Adicione outras entradas conforme necessário
@@ -41,12 +40,8 @@ class Graficos:
             return 'Nenhum dado selecionado'
 
         if tipo_grafico in graficos_disponiveis:
-            if tipo_grafico == 'pizza' or tipo_grafico == 'radar':
-                graph = graficos_disponiveis[tipo_grafico](dado1)
-            else:
-                graph = graficos_disponiveis[tipo_grafico](dado1, dado2)
+            graph = graficos_disponiveis[tipo_grafico](dado1, dado2)
         else:
-            # Lógica para lidar com um tipo de gráfico desconhecido, se necessário
             graph = None
 
         return graph 
@@ -69,7 +64,7 @@ class Graficos:
         fig = px.bar(self.df, x=x, y=y, title=title, labels=labels)
         return self._salvar_grafico(fig)
 
-    def gerar_grafico_pizza(self, dado):
+    def gerar_grafico_pizza(self, dado, lixo):
         """
         Gera um gráfico de pizza.
         """
@@ -138,34 +133,6 @@ class Graficos:
         #labels = {'count': 'Contagem', x: x} if not y else {x: x, y: y}
 
         fig = px.area(self.df, x=x, y=y, title=title, labels=labels)
-        return self._salvar_grafico(fig)
-
-    def gerar_grafico_radar(self):
-        """
-        Gera um gráfico de radar.
-        """
-        colunas_numericas = self.df.select_dtypes(include=['number']).columns
-        fig = go.Figure()
-
-        for i, (_, row) in enumerate(self.df.iterrows()):
-            fig.add_trace(go.Scatterpolar(
-                r=row[colunas_numericas].values,
-                theta=colunas_numericas,
-                fill='toself',
-                name=str(i)  # Use a contagem numérica como nome
-            ))
-
-        fig.update_layout(
-            polar=dict(
-                radialaxis=dict(
-                    visible=True,
-                    range=[0, self.df[colunas_numericas].max().max()]
-                )
-            ),
-            showlegend=True,
-            title='Gráfico de Radar'
-        )
-
         return self._salvar_grafico(fig)
     
     def gerar_grafico_area_empilhada(self, x=None, y=None):

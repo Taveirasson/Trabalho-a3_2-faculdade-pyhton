@@ -17,12 +17,11 @@
             <option value="dispersao">Gráfico de Dispersão</option>
             <option value="linha">Gráfico de Linha</option>
             <option value="area">Gráfico de Área</option>
-            <option value="radar">Gráfico de Radar</option>
             <option value="area_empilhada">Gráfico de Área Empilhada</option>
             <option value="barras_empilhadas">Gráfico de Barras Empilhadas</option>    
         </select>
     
-        <label for="dados">Escolha os dados para aparecer no gráfico (Pizza e Radar apenas o primeiro dado):</label>
+        <label for="dados">Escolha os dados para aparecer no gráfico (Pizza apenas o primeiro dado):</label>
         <select name="dado1">
             <option value="diagnostico">Diagnóstico</option>
             <option value="null">Nenhum</option>
@@ -75,6 +74,7 @@
         <input type="submit" value="Gerar Gráfico">
     </form>
     
+    <br>
     <!-- Exibir a imagem do gráfico -->
     <img src="data:image/png;base64,{{ graph }}" alt="Gráfico">
 
