@@ -1,7 +1,9 @@
 #importação das bibliotecas
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, send_file
 import mysql.connector
 import pandas as pd
+from io import BytesIO
+
 
 from class_graficos import Graficos
 
@@ -83,6 +85,24 @@ def dashboard():
         return render_template('dashboard.html', graph=graph)
 
     return render_template('dashboard.html')
+
+@app.route('/download_excel')
+def download_excel():
+    # Obter dados do banco de dados
+    df = fetch_data()
+
+    # Criar um arquivo Excel em memória
+    output = BytesIO()
+    with pd.ExcelWriter(output, engine='openpyxl') as writer:
+        df.to_excel(writer, sheet_name='Sheet1', index=False)
+
+        # Adiciona uma planilha vazia para garantir que haja pelo menos uma planilha visível
+        writer.book.create_sheet()
+
+    output.seek(0)
+
+    # Enviar o arquivo Excel como uma resposta de download
+    return send_file(output, download_name='dados_excel.xlsx', as_attachment=True)
 
 #executa o aplicativo flask
 if __name__ == '__main__':
