@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Dashboard</h1>
+
+    <form action="{{ url_for('dashboard') }}" method="post">
+        <label for="grafico">Escolha qual tipo de gráfico quer ver:</label>
+        <select name="grafico" id="grafico">
+            <option value="barras">Barras</option>
+            <option value="pizza">Pizza</option>
+            <option value="dispersao">Gráfico de Dispersão</option>
+            <option value="linha">Gráfico de Linha</option>
+            <option value="area">Gráfico de Área</option>
+            <option value="radar">Gráfico de Radar</option>
+            <option value="area_empilhada">Gráfico de Área Empilhada</option>
+            <option value="barras_empilhadas">Gráfico de Barras Empilhadas</option>    
+        </select>
+    
+        <label for="dados">Escolha os dados para aparecer no gráfico (Pizza e Radar apenas o primeiro dado):</label>
+        <select name="dado1">
+            <option value="diagnostico">Diagnóstico</option>
+            <option value="null">Nenhum</option>
+            <option value="eritrocitos">Eritrócitos</option>
+            <option value="hemoglobina">Hemoglobina</option>
+            <option value="dematocrito">Dematocrito</option>
+            <option value="hcm">HCM</option>
+            <option value="vgm">VGM</option>
+            <option value="chgm">CHGM</option>
+            <option value="metarrubricitos">Metarrubricitos</option>
+            <option value="proteina_plasmatica">Proteína Plasmática</option>
+            <option value="leucocitos">Leucócitos</option>
+            <option value="leucograma">Leucograma</option>
+            <option value="segmentados">Segmentados</option>
+            <option value="bastonetes">Bastonetes</option>
+            <option value="blastos">Blastos</option>
+            <option value="metamielocitos">Metamielócitos</option>
+            <option value="mielocitos">Mielócitos</option>
+            <option value="linfocitos">Linfócitos</option>
+            <option value="monocitos">Monócitos</option>
+            <option value="eosinofilos">Eosinófilos</option>
+            <option value="basofilos">Basófilos</option>
+            <option value="plaquetas">Plaquetas</option>
+        </select>
+        <select name="dado2">
+            <option value="null">Nenhum</option>
+            <option value="diagnostico">Diagnóstico</option>
+            <option value="eritrocitos">Eritrócitos</option>
+            <option value="hemoglobina">Hemoglobina</option>
+            <option value="dematocrito">Dematocrito</option>
+            <option value="hcm">HCM</option>
+            <option value="vgm">VGM</option>
+            <option value="chgm">CHGM</option>
+            <option value="metarrubricitos">Metarrubricitos</option>
+            <option value="proteina_plasmatica">Proteína Plasmática</option>
+            <option value="leucocitos">Leucócitos</option>
+            <option value="leucograma">Leucograma</option>
+            <option value="segmentados">Segmentados</option>
+            <option value="bastonetes">Bastonetes</option>
+            <option value="blastos">Blastos</option>
+            <option value="metamielocitos">Metamielócitos</option>
+            <option value="mielocitos">Mielócitos</option>
+            <option value="linfocitos">Linfócitos</option>
+            <option value="monocitos">Monócitos</option>
+            <option value="eosinofilos">Eosinófilos</option>
+            <option value="basofilos">Basófilos</option>
+            <option value="plaquetas">Plaquetas</option>
+        </select>
+    
+        <input type="submit" value="Gerar Gráfico">
+    </form>
+    
+    <!-- Exibir a imagem do gráfico -->
+    <img src="data:image/png;base64,{{ graph }}" alt="Gráfico">
+
+
+</body>
+</html>

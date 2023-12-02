@@ -1,10 +1,12 @@
 #importação das bibliotecas
 from flask import Flask, request, render_template
 import mysql.connector
+import pandas as pd
+
+from class_graficos import Graficos
 
 #inicia o flask
 app = Flask(__name__)
-
 
 # Conecta com mysql
 conexao = mysql.connector.connect(
@@ -13,9 +15,14 @@ conexao = mysql.connector.connect(
     password='root',
     database = 'atividade' )
 
-# Rota do index
+
 @app.route('/')
 def index():
+    return render_template('index.html')
+
+# Rota do registro doenca
+@app.route('/registro_doenca', methods=['POST','GET'])
+def registro_doenca():
     if request.method == 'POST':
         diagnostico = request.form['diagnostico']
         eritrocitos = request.form['eritrocitos']
@@ -39,8 +46,43 @@ def index():
         basofilos = request.form['basofilos']
         plaquetas = request.form['plaquetas']
 
-    return render_template('index.html')
+        cursor = conexao.cursor()
 
+        comando_insert = f"INSERT INTO formulario (diagnostico, eritrocitos, hemoglobina, dematocrito, hcm, vgm, chgm, metarrubricitos, proteina_plasmatica, leucocitos, leucograma, segmentados, bastonetes, blastos, metamielocitos, mielocitos, linfocitos, monocitos, eosinofilos, basofilos, plaquetas)VALUES ('{diagnostico}', '{eritrocitos}', '{hemoglobina}', '{dematocrito}', '{hcm}', '{vgm}', '{chgm}', '{metarrubricitos}', '{proteina_plasmatica}', '{leucocitos}', '{leucograma}', '{segmentados}', '{bastonetes}', '{blastos}', '{metamielocitos}', '{mielocitos}', '{linfocitos}', '{monocitos}', '{eosinofilos}', '{basofilos}', '{plaquetas}');"
+
+        cursor.execute(comando_insert)
+        conexao.commit()
+        cursor.close()
+
+    return render_template('registro_doenca.html')
+
+
+def fetch_data():
+    # Consultar dados do MySQL
+    query = "SELECT * FROM formulario;"
+    df = pd.read_sql(query, conexao)
+    return df
+
+@app.route('/dashboard', methods=['POST','GET'])
+def dashboard():
+    if request.method == 'POST':
+        # Obter escolhas do usuário do formulário
+        tipo_grafico = request.form['grafico']
+        dado1 = request.form['dado1']
+        dado2 = request.form['dado2']
+
+        # Obter gráfico com base nas escolhas do usuário
+        df = fetch_data()  # Certifique-se de ter a função fetch_data() definida
+        gf = Graficos(df)
+
+        dado1 = None if dado1 == 'null' else dado1
+        dado2 = None if dado2 == 'null' else dado2
+
+        graph = gf.gerar_grafico(tipo_grafico, dado1, dado2)
+
+        return render_template('dashboard.html', graph=graph)
+
+    return render_template('dashboard.html')
 
 #executa o aplicativo flask
 if __name__ == '__main__':

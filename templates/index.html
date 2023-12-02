@@ -7,75 +7,17 @@
     <title>index</title>
 </head>
 <body>
-  <div class="container">    
-      <h1 class="container__titulo">cadastre os dados aqui</h1>
-      <form action="/processar_dados" method="POST">
-        <label for="diagnostico">Diagnóstico:</label>
-        <input type="text" name="diagnostico" required><br>
+  <div class="container">
     
-        <label for="eritrocitos">Eritrócitos:</label>
-        <input type="text" name="eritrocitos" required><br>
-    
-        <label for="hemoglobina">Hemoglobina:</label>
-        <input type="text" name="hemoglobina" required><br>
-    
-        <label for="hematocrito">Hematócrito:</label>
-        <input type="text" name="hematocrito" required><br>
-    
-        <label for="hcm">HCM:</label>
-        <input type="text" name="hcm" required><br>
-    
-        <label for="vgm">VGM:</label>
-        <input type="text" name="vgm" required><br>
-    
-        <label for="chgm">CHGM:</label>
-        <input type="text" name="chgm" required><br>
-    
-        <label for="metarrubricitos">Metarrubrícitos:</label>
-        <input type="text" name="metarrubricitos" required><br>
-    
-        <label for="proteina_plasmatica">Proteína Plasmática:</label>
-        <input type="text" name="proteina_plasmatica" required><br>
-    
-        <label for="leucocitos">Leucócitos:</label>
-        <input type="text" name="leucocitos" required><br>
-    
-        <label for="leucograma">Leucograma:</label>
-        <input type="text" name="leucograma" required><br>
-    
-        <label for="segmentados">Segmentados:</label>
-        <input type="text" name="segmentados" required><br>
-    
-        <label for="bastonetes">Bastonetes:</label>
-        <input type="text" name="bastonetes" required><br>
-    
-        <label for="blastos">Blastos:</label>
-        <input type="text" name="blastos" required><br>
-    
-        <label for="metamielocitos">Metamielócitos:</label>
-        <input type="text" name="metamielocitos" required><br>
-    
-        <label for="mielocitos">Mielócitos:</label>
-        <input type="text" name="mielocitos" required><br>
-    
-        <label for="linfocitos">Linfócitos:</label>
-        <input type="text" name="linfocitos" required><br>
-    
-        <label for="monocitos">Monócitos:</label>
-        <input type="text" name="monocitos" required><br>
-    
-        <label for="eosinofilos">Eosinófilos:</label>
-        <input type="text" name="eosinofilos" required><br>
-    
-        <label for="basofilos">Basófilos:</label>
-        <input type="text" name="basofilos" required><br>
-    
-        <label for="plaquetas">Plaquetas:</label>
-        <input type="text" name="plaquetas" required><br>
-    
-        <input type="submit" value="Enviar">
-    </form>
-    
+      <h1 class="container__titulo">Bem-vindo à Página Inicial</h1>
+
+      <h2 class="container__titulo__registrar">Registro de doença aqui</h2>
+      <a class="container__link" href="{{url_for('registro_doenca')}}">Registrar</a>
+
+      
+      <h2 class="container__titulo__registrar">Dashboard aqui:</h2>
+      <a class="container__link" href="{{url_for('dashboard')}}">dashboard</a>
+
   </div>
 </body>
 </html>
